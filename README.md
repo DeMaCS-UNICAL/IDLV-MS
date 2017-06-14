@@ -11,3 +11,11 @@ In order to use I-DLV+MS just type:
 $ cat filename | ./run PREDICATE_TO_FILTER
 ```
 The parameter PREDICATE_TO_FILTER is a comma-separated list of output predicate names.
+
+# Core Team
+* [Francesco Calimeri](https://www.mat.unical.it/calimeri) 
+* Davide Fuscà
+* Simona Perri
+* Jessica Zangari
+
+For any problems or suggestions contact us at i-dlv@googlegroups.com.
