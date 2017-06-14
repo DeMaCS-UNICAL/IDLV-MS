@@ -20,7 +20,7 @@ if [[ $FILTER = "show_all" ]];then
     IDLV="$DIR/idlv-lpopt-portable/idlv --t"
 fi
 IDLVQUERY="$IDLV --query"
-CLASP="$DIR/clingo-5.1 --mode=clasp --outf=1"
+
 SELECTOR="$DIR/selector.sh"
 trap ":" 24 15
 
