@@ -1,8 +1,0 @@
-./idlv-lpopt-portable/idlv --t
-./idlv-lpopt-portable/idlv --t --query
-./selector.sh
-./idlv-lpopt-portable/idlv --stdin --enable-lpopt ./clingo-5.1 --mode=clasp --configuration=trendy --outf=1
-./selector.sh
-./idlv-lpopt-portable/idlv --stdin --enable-lpopt ./clingo-5.1 --mode=clasp --configuration=trendy --outf=1
-./selector.sh
-./idlv-lpopt-portable/idlv --stdin --enable-lpopt ./clingo-5.1 --mode=clasp --configuration=trendy --outf=1
