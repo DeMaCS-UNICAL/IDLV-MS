@@ -1,0 +1,74 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]
+  then
+      echo "No arguments supplied, please specify a comma-separated list of output predicate names or show_all."
+      exit 1
+fi
+
+
+FILTER=$1
+
+DIR=`dirname $0`;
+FILE=$DIR/mytmp.$$;
+touch $FILE;
+INST="";
+cat $INST  > $FILE;
+OUT=$($DIR/idlv-stats $FILE 2> /dev/null | tail -n 1)
+IDLV="$DIR/idlv-lpopt-portable/idlv --t --filter=$FILTER"
+if [[ $FILTER = "show_all" ]];then
+    IDLV="$DIR/idlv-lpopt-portable/idlv --t"
+fi
+IDLVQUERY="$IDLV --query"
+CLASP="$DIR/clingo-5.1 --mode=clasp --outf=1"
+SELECTOR="$DIR/selector.sh"
+trap ":" 24 15
+
+EXITCODE=1
+IFS=$'\t' read -r -a OUTARR <<< "$OUT"
+
+ISEVAL=${OUTARR[0]}
+QUERYGROUND=${OUTARR[3]}
+QUERYEVAL=${OUTARR[2]}
+QUERY=0
+if [[ "${OUTARR[1]}" -eq "0" ]];then
+    QUERY="1"
+fi
+PROP=${OUTARR[4]}
+
+if [[ "$QUERYEVAL" -eq "1" && "$QUERYGROUND" -eq "1" ]]; then
+    OUTIDLV=`$IDLVQUERY $FILE 2> /dev/null`
+    echo "ANSWER"
+    if [[ "$OUTIDLV" == "" ]]
+        then
+            echo ""
+            EXITCODE=10
+    else
+        echo $OUTIDLV
+        EXITCODE=10
+    fi
+    
+    echo $IDLVQUERY >> $DIR/log
+elif [ "$ISEVAL" -eq "1" ];then
+    OUTIDLV=`$IDLV $FILE 2> /dev/null`
+    echo "ANSWER"
+    if [[ "$OUTIDLV" == "" ]]
+        then
+            echo ""
+            EXITCODE=10
+    else
+        echo $OUTIDLV
+        EXITCODE=10
+    fi
+    
+    echo $IDLV >> $DIR/log
+else
+    echo $SELECTOR >> $DIR/log
+    cat $FILE | $SELECTOR $FILTER
+    EXITCODE=$?
+fi
+
+
+rm $FILE
+exit $EXITCODE
+
