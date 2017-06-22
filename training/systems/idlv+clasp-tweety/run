@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DIR=`dirname $0`;
+
+IDLV="$DIR/idlv-lpopt-portable/idlv --enable-lpopt"
+CLASP="$DIR/clingo-5.1 --mode=clasp --configuration=tweety --outf=1"
+
+$IDLV $1 $2 | $CLASP
+exit $EXITCODE
+

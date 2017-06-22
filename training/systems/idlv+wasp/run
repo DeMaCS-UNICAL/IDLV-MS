@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DIR=`dirname $0`;
+
+IDLV="$DIR/idlv-lpopt-portable/idlv --enable-lpopt"
+WASP="$DIR/wasp-05-04-2017 --competition-output --trim-core --enable-disjcores --shrinking-strategy=progression --shrinking-budget=10"
+
+$IDLV $1 $2 | $WASP
+exit $EXITCODE
+
