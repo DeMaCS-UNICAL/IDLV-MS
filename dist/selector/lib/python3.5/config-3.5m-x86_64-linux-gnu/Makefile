@@ -21,6 +21,7 @@
 
 # === Variables set by makesetup ===
 
+MODNAMES=        _thread _signal array math _struct _random _elementtree _pickle _datetime _bisect _heapq unicodedata fcntl spwd grp select _socket _posixsubprocess _md5 _sha1 _sha256 _sha512 syslog binascii zlib pyexpat posix errno pwd _sre _codecs _weakref _functools _operator _collections itertools atexit _stat time _locale _io zipimport faulthandler _tracemalloc _symtable xxsubtype
 MODOBJS=          Modules/_threadmodule.o  Modules/signalmodule.o  Modules/arraymodule.o  Modules/mathmodule.o Modules/_math.o  Modules/_struct.o  Modules/_randommodule.o  Modules/_elementtree.o  Modules/_pickle.o  Modules/_datetimemodule.o  Modules/_bisectmodule.o  Modules/_heapqmodule.o  Modules/unicodedata.o  Modules/fcntlmodule.o  Modules/spwdmodule.o  Modules/grpmodule.o  Modules/selectmodule.o  Modules/socketmodule.o  Modules/_posixsubprocess.o  Modules/md5module.o  Modules/sha1module.o  Modules/sha256module.o  Modules/sha512module.o  Modules/syslogmodule.o  Modules/binascii.o  Modules/zlibmodule.o  Modules/pyexpat.o  Modules/posixmodule.o  Modules/errnomodule.o  Modules/pwdmodule.o  Modules/_sre.o  Modules/_codecsmodule.o  Modules/_weakref.o  Modules/_functoolsmodule.o  Modules/_operator.o  Modules/_collectionsmodule.o  Modules/itertoolsmodule.o  Modules/atexitmodule.o  Modules/_stat.o  Modules/timemodule.o  Modules/_localemodule.o  Modules/_iomodule.o Modules/iobase.o Modules/fileio.o Modules/bytesio.o Modules/bufferedio.o Modules/textio.o Modules/stringio.o  Modules/zipimport.o  Modules/faulthandler.o  Modules/_tracemalloc.o Modules/hashtable.o  Modules/symtablemodule.o  Modules/xxsubtype.o
 MODLIBS=        $(LOCALMODLIBS) $(BASEMODLIBS)
 
@@ -28,8 +29,8 @@ MODLIBS=        $(LOCALMODLIBS) $(BASEMODLIBS)
 VERSION=	3.5
 srcdir=		..
 VPATH=		..
-abs_srcdir=	/build/python3.5-6tVwKN/python3.5-3.5.2/build-shared/..
-abs_builddir=	/build/python3.5-6tVwKN/python3.5-3.5.2/build-shared
+abs_srcdir=	/build/python3.5-NP1chR/python3.5-3.5.3/build-shared/..
+abs_builddir=	/build/python3.5-NP1chR/python3.5-3.5.3/build-shared
 
 
 CC=		x86_64-linux-gnu-gcc -pthread
@@ -76,7 +77,7 @@ MAKESETUP=      $(srcdir)/Modules/makesetup
 OPT=		-DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes
 BASECFLAGS=	 -Wno-unused-result -Wsign-compare
 BASECPPFLAGS=	-IObjects -IInclude -IPython
-CONFIGURE_CFLAGS=	-g -fdebug-prefix-map=/build/python3.5-6tVwKN/python3.5-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security 
+CONFIGURE_CFLAGS=	-g -fdebug-prefix-map=/build/python3.5-NP1chR/python3.5-3.5.3=. -fstack-protector-strong -Wformat -Werror=format-security 
 # CFLAGS_NODIST is used for building the interpreter and stdlib C extensions.
 # Use it when a compiler flag should _not_ be part of the distutils CFLAGS
 # once Python is installed (Issue #21121).
@@ -181,7 +182,7 @@ EXEMODE=	755
 FILEMODE=	644
 
 # configure script arguments
-CONFIG_ARGS=	 '--enable-shared' '--prefix=/usr' '--enable-ipv6' '--enable-loadable-sqlite-extensions' '--with-dbmliborder=bdb:gdbm' '--with-computed-gotos' '--without-ensurepip' '--with-system-expat' '--with-system-libmpdec' '--with-system-ffi' '--with-fpectl' 'CC=x86_64-linux-gnu-gcc' 'CFLAGS=-g -fdebug-prefix-map=/build/python3.5-6tVwKN/python3.5-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security ' 'LDFLAGS=-Wl,-Bsymbolic-functions -Wl,-z,relro' 'CPPFLAGS=-Wdate-time -D_FORTIFY_SOURCE=2'
+CONFIG_ARGS=	 '--enable-shared' '--prefix=/usr' '--enable-ipv6' '--enable-loadable-sqlite-extensions' '--with-dbmliborder=bdb:gdbm' '--with-computed-gotos' '--without-ensurepip' '--with-system-expat' '--with-system-libmpdec' '--with-system-ffi' '--with-fpectl' 'CC=x86_64-linux-gnu-gcc' 'CFLAGS=-g -fdebug-prefix-map=/build/python3.5-NP1chR/python3.5-3.5.3=. -fstack-protector-strong -Wformat -Werror=format-security ' 'LDFLAGS=-Wl,-Bsymbolic-functions -Wl,-z,relro' 'CPPFLAGS=-Wdate-time -D_FORTIFY_SOURCE=2'
 
 
 # Subdirectories with code
@@ -225,8 +226,8 @@ BUILDPYTHON=	python$(BUILDEXE)
 PYTHON_FOR_GEN=python3.5
 PYTHON_FOR_BUILD=./$(BUILDPYTHON) -E
 _PYTHON_HOST_PLATFORM=
-BUILD_GNU_TYPE=	x86_64-unknown-linux-gnu
-HOST_GNU_TYPE=	x86_64-unknown-linux-gnu
+BUILD_GNU_TYPE=	x86_64-pc-linux-gnu
+HOST_GNU_TYPE=	x86_64-pc-linux-gnu
 
 # Tcl and Tk config info from --with-tcltk-includes and -libs options
 TCLTK_INCLUDES=	
@@ -1373,7 +1374,7 @@ python-config: $(srcdir)/Misc/python-config.in Misc/python-config.sh
 	# is not available in configure
 	sed -e "s,@EXENAME@,$(BINDIR)/python$(LDVERSION)$(EXE)," < $(srcdir)/Misc/python-config.in >python-config.py
 	# Replace makefile compat. variable references with shell script compat. ones; $(VAR) -> ${VAR}
-	sed -e 's,\$$(\([A-Za-z0-9_]*\)),\$$\{\1\},g' < Misc/python-config.sh >python-config
+	LC_ALL=C sed -e 's,\$$(\([A-Za-z0-9_]*\)),\$$\{\1\},g' < Misc/python-config.sh >python-config
 	# On Darwin, always use the python version of the script, the shell
 	# version doesn't use the compiler customizations that are provided
 	# in python (_osx_support.py).
@@ -1449,7 +1450,7 @@ libainstall:	all python-config
 		$(INSTALL_SCRIPT) $(srcdir)/Modules/makexp_aix	\
 				$(DESTDIR)$(LIBPL)/makexp_aix;		\
 		echo "$(LIBPL)/makexp_aix";			\
-		$(INSTALL_SCRIPT) $(srcdir)/Modules/ld_so_aix	\
+		$(INSTALL_SCRIPT) Modules/ld_so_aix	\
 				$(DESTDIR)$(LIBPL)/ld_so_aix;		\
 		echo "$(LIBPL)/ld_so_aix";			\
 		echo; echo "See Misc/AIX-NOTES for details.";	\
@@ -1655,7 +1656,11 @@ distclean: clobber
 		Modules/Setup Modules/Setup.local Modules/Setup.config \
 		Modules/ld_so_aix Modules/python.exp Misc/python.pc
 	-rm -f python*-gdb.py
-	find $(srcdir)/[a-zA-Z]* '(' -name '*.fdc' -o -name '*~' \
+	# Issue #28258: set LC_ALL to avoid issues with Estonian locale.
+	# Expansion is performed here by shell (spawned by make) itself before
+	# arguments are passed to find. So LC_ALL=C must be set as a separate
+	# command.
+	LC_ALL=C; find $(srcdir)/[a-zA-Z]* '(' -name '*.fdc' -o -name '*~' \
 				     -o -name '[@,#]*' -o -name '*.old' \
 				     -o -name '*.orig' -o -name '*.rej' \
 				     -o -name '*.bak' ')' \
